@@ -31,7 +31,7 @@ def store_data(data: dict[str, list[str, str, str]],
         curr_time: time.struct_time object of the time the original html file is obtained
     """
     target_folder = create_folder_needed_if_not_exists(curr_time)
-    file_name = time.strftime('%Y-%m-%d-%H-%M-%S', curr_time)
+    file_name = time.strftime('%Y-%m-%d-%H-%M-%S', curr_time) + '.csv'
     file_path = os.path.join(target_folder, file_name)
     with open(os.path.join(file_path), 'w', newline='') as f:
         writer = csv.writer(f)
