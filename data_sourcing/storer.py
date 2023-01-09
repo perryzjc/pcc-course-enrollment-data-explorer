@@ -74,18 +74,27 @@ def create_folder_needed_if_not_exists(target_time: time.struct_time,
     """
     def curr_year() -> str:
         """Return the current year in string format
+
+        For example:
+        2023
         """
         return str(target_time.tm_year)
 
     def curr_month() -> str:
         """Return the current month in string format
+
+        For example:
+        09
         """
-        return str(target_time.tm_mon)
+        return str(target_time.tm_mon).zfill(2)
 
     def curr_day() -> str:
         """Return the current day in string format
+
+        For example:
+        07
         """
-        return str(target_time.tm_mday)
+        return str(target_time.tm_mday).zfill(2)
 
     def create_folder_if_not_exists(folder_path: str) -> None:
         """Create folder if it does not exist
