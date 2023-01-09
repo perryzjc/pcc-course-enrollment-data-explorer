@@ -23,7 +23,7 @@ def parse_html(html: str) -> dict[str, list[str, str, str]]:
 
         {'course_crn': [num1, num2, num3]}
         num1 is Cap, num2 is Act, num3 is Rem
-    >>> with open('sample_html/one_course_data.html', 'r') as f:
+    >>> with open('../sample_html/one_course_data.html', 'r') as f:
     ...     html_data = f.read()
     ...     parse_html(html_data)
     {'37200': ['20', '15', '2', 'OPEN']}
