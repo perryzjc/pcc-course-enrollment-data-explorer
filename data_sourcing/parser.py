@@ -9,9 +9,10 @@ Typical usage example:
 
 from bs4 import BeautifulSoup
 import collections.abc
+import data_sourcing.constants as constants
 
 
-def parse_html(html: str) -> dict[str, list[str, str, str]]:
+def parse_html(html: str) -> dict[str, list[str, str, str, str]]:
     """Parse HTML data and return a dictionary of course data.
 
     Args:
@@ -21,29 +22,12 @@ def parse_html(html: str) -> dict[str, list[str, str, str]]:
         A dict mapping keys to the corresponding course data. Each course data is a list
         of Cap, Act, Rem, and status. For example:
 
-        {'course_crn': [num1, num2, num3]}
-        num1 is Cap, num2 is Act, num3 is Rem
-    >>> with open('../sample_html/one_course_data.html', 'r') as f:
-    ...     html_data = f.read()
-    ...     parse_html(html_data)
-    {'37200': ['20', '15', '2', 'OPEN']}
+        {'course_crn': [num1, num2, num3, course_status],]}
+        num1 is Cap, num2 is Act, num3 is Rem. For example:
+        {'37200': ['20', '15', '2', 'OPEN']}
     """
-    def parse_to_raw_list():
-        """Parse HTML data and return a list of raw data which is a list of string separated by
 
-        @return: list of raw data
-        """
-        soup = BeautifulSoup(html, 'html.parser')
-        raw_data = []
-        for tr in soup.body.find_all('tr'):
-            lines = tr.text.split('\n')
-            if lines is None:
-                continue
-            for line in lines:
-                raw_data.append(line)
-        return raw_data
-
-    lst_iter = iter(parse_to_raw_list())
+    lst_iter = iter(parse_to_raw_list(html))
     course_dict = {}
     try:
         while True:
@@ -55,6 +39,45 @@ def parse_html(html: str) -> dict[str, list[str, str, str]]:
     except StopIteration:
         pass
     return course_dict
+
+
+def parse_to_raw_list(html: str) -> list[str, ...]:
+    """Parse HTML data and return a list of raw data which is a list of string separated by
+
+    Returns:
+        a list of raw data
+        For example:
+
+        OPEN
+        LL
+         31486
+          6.0
+        Lecture
+        M
+        T
+        W
+        Th
+
+
+
+        02:10pm - 03:00pm
+        IT 140
+        20
+        4
+        8
+        Kevin  Keane
+        01/09-05/07
+        16
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+    raw_data = []
+    for tr in soup.body.find_all('tr'):
+        lines = tr.text.split('\n')
+        if lines is None:
+            continue
+        for line in lines:
+            raw_data.append(line)
+    return raw_data
 
 
 def next_status(data_lst_iter: collections.abc.Iterator) -> str:
@@ -125,13 +148,50 @@ def next_course_data(data_lst_iter: collections.abc.Iterator) -> list[str, str, 
         StopIteration: if there is no more data in the iterator
     """
     assert isinstance(data_lst_iter, collections.abc.Iterator)
-    offset = 12
-    # course data is 12 \n away from CRN
-    for _ in range(offset - 1):
-        next(data_lst_iter)
 
-    course_data = []
-    for data in range(3):
+    def move_iter_to_first_course_data() -> str:
+        """Move iterator to the second course data and return the first course data
+
+        Returns:
+            first course data (Cap). For example, '30'
+        """
+        while True:
+            item = next(data_lst_iter)
+            if not is_location(item):
+                continue
+            else:
+                first_course_data = next(data_lst_iter)
+                if first_course_data.isdigit():
+                    return first_course_data
+
+    course_data = [move_iter_to_first_course_data()]
+    for data in range(2):
         course_data.append(next(data_lst_iter))
 
     return course_data
+
+
+def is_location(text: str) -> bool:
+    """Return True if the string is a location at PCC
+
+    If the text is obtained after calling next_crn(), the returned
+    value will be more likely to be a location.
+
+    PCC locations could have Online ZOOM, Online ASYNCH, PCC Rosemead 106,
+    C 361, IT 212, etc.
+
+    Args:
+        text: string to be checked
+
+    Returns:
+        True if the string is a location at PCC, False otherwise
+    """
+    # based on observation, PCC locations are always at least 5 characters long after stripping
+    # , they are not entirely digits
+    # , none of them starts with a letter L
+    # , none of them starts with a digit (this case is for time, e.g. 10:30am - 02:05pm)
+    stripped_text = text.strip()
+    return len(stripped_text) >= 5 \
+           and not stripped_text.isdigit() \
+           and not stripped_text.startswith('L') \
+           and not stripped_text[0].isdigit()
