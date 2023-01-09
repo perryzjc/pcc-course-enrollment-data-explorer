@@ -48,7 +48,7 @@ def test_parse_html_11_courses(setup_html_11_courses):
 
 def test_parse_html_all_courses(setup_html_all_courses):
     data = parse_html(setup_html_all_courses)
-    assert len(data) == 2340
+    assert len(data) == 2453
     assert data['37201'] == ['20', '--', '0', 'CLOSED']
     helper_check_dict_format(data)
 
