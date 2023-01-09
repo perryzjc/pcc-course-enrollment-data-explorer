@@ -14,21 +14,21 @@ ABSOLUTE_CWD = os.path.dirname(os.path.abspath(__file__))
 
 @pytest.fixture
 def setup_html_1_course():
-    with open(os.path.join(ABSOLUTE_CWD, 'sample_html/one_course_data.html'), 'r') as f:
+    with open(os.path.join(ABSOLUTE_CWD, '../sample_html/one_course_data.html'), 'r') as f:
         html = f.read()
     return html
 
 
 @pytest.fixture
 def setup_html_11_courses():
-    with open(os.path.join(ABSOLUTE_CWD, 'sample_html/few_courses_data.html'), 'r') as f:
+    with open(os.path.join(ABSOLUTE_CWD, '../sample_html/few_courses_data.html'), 'r') as f:
         html = f.read()
     return html
 
 
 @pytest.fixture()
 def setup_html_all_courses():
-    with open(os.path.join(ABSOLUTE_CWD, 'sample_html/all_courses_data.html'), 'r') as f:
+    with open(os.path.join(ABSOLUTE_CWD, '../sample_html/all_courses_data.html'), 'r') as f:
         html = f.read()
     return html
 
