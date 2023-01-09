@@ -2,6 +2,8 @@
 """
 
 
+# REQUEST_INTERVAL is the time interval (in min) between two requests
+REQUEST_INTERVAL = 30
 # OUTPUT_FOLDER specifies the folder where the output files are stored
 OUTPUT_FOLDER = 'output'
 # SAMPLE_FOLDER specifies the folder where the sample html files are stored
