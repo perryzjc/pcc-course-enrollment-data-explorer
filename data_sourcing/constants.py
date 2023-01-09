@@ -1,6 +1,6 @@
-"""Store the constants used in the program
+"""Store the constants used in the data_sourcing package
 """
-
+import os
 
 # REQUEST_INTERVAL is the time interval (in seconds) between two requests
 REQUEST_INTERVAL = 30 * 60
