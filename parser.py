@@ -12,7 +12,7 @@ def parse_html(html):
     >>> with open('sample_html/one_course_data.html', 'r') as f:
     ...     html_data = f.read()
     ...     parse_html(html_data)
-    {'37200': ['20', '15', '2']}
+    {'37200': ['20', '15', '2', 'OPEN']}
     """
     def parse_to_raw_list():
         """
@@ -33,17 +33,39 @@ def parse_html(html):
     course_dict = {}
     try:
         while True:
+            status = next_status(lst_iter)
             crn = next_crn(lst_iter)
             course_data = next_course_data(lst_iter)
+            course_data.append(status)
             course_dict[crn] = course_data
     except StopIteration:
         pass
     return course_dict
 
 
+def next_status(data_lst_iter):
+    """
+    Return the next course status in iterator and move the iterator to the next data
+    There are 3 status: OPEN, ClOSED, Waitlisted
+    @param data_lst_iter: iterator of the list of data
+    @return: first status appeared in the list
+    """
+    assert isinstance(data_lst_iter, collections.abc.Iterator)
+    status_found = False
+    status = None
+    while not status_found:
+        item = next(data_lst_iter).strip()
+        if item == 'OPEN' or item == 'CLOSED' or item == 'Waitlisted':
+            status_found = True
+            status = item
+
+    return status
+
+
 def next_crn(data_lst_iter):
     """
     Return the next CRN in iterator and move the iterator to the next data
+    Function should be called after next_status() is called.
     @param data_lst_iter: iterator of the list of data
     @return: first CRN appeared in the iterator
     """
