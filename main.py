@@ -1,3 +1,10 @@
+"""Main logic for the application.
+
+This module currently only have data_sourcing related functions.
+It currently can store the parsed files obtained through PCC course schedule web
+in a fixed time interval.
+"""
+
 from data_sourcing.requester import get_html_of_course_web
 from data_sourcing.parser import parse_html
 from data_sourcing.storer import store_data
