@@ -29,11 +29,19 @@ def store_data(data: dict[str, list[str, str, str]],
     Args:
         data: Parsed data from parser.parse_html()
         curr_time: time.struct_time object of the time the original html file is obtained
-        target_folder_path: base path of the folder to store the csv file. For example:
+        target_folder_path: base path of the folder to store the csv file, which need to exist.
+        For example:
 
         When target_folder_path is provided as pcc/output, the csv file could be stored
         at pcc/output/2023/1/13/2023-1-13-12-34-56.csv
+
+        If the folder does not exist, the function will raise FileNotFoundError.
+
+    Raises:
+        FileNotFoundError: If the target_folder_path does not exist.
     """
+    if not os.path.exists(target_folder_path):
+        raise FileNotFoundError("target_folder_path does not exist")
     target_folder = create_folder_needed_if_not_exists(curr_time, target_folder_path)
     file_name = time.strftime('%Y-%m-%d-%H-%M-%S', curr_time) + '.csv'
     file_path = os.path.join(target_folder, file_name)
