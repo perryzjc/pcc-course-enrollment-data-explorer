@@ -7,7 +7,7 @@ REQUEST_INTERVAL = 30 * 60
 # OUTPUT_FOLDER specifies the folder where the output files are stored
 OUTPUT_FOLDER = 'output'
 # OUTPUT_DATA_SOURCING_FOLDER specifies the folder where the output files from data sourcing are stored
-OUTPUT_DATA_SOURCING_FOLDER = os.path.join(OUTPUT_FOLDER, 'data_sourcing')
+OUTPUT_DATA_SOURCING_FOLDER = os.path.join(OUTPUT_FOLDER, 'data_source')
 # SAMPLE_FOLDER specifies the folder where the sample html files are stored
 SAMPLE_HTML_FOLDER = 'sample_html'
 # ALL_COURSES_URL is the url of the PCC course schedule web
