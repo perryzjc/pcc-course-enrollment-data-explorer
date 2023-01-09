@@ -38,3 +38,10 @@ def test_curr_time2(setup_data):
     assert os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                         setup_data[1],
                                         '2026', '06', '06', '2026-06-06-06-06-06.csv'))
+    sample_dict = setup_data[0]
+    curr_time = time.struct_time((2023, 1, 13, 12, 34, 56, 0, 0, 0))
+    target_base_path = setup_data[1]
+    store_data(sample_dict, curr_time, target_base_path)
+    assert os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                       target_base_path,
+                                       '2023', '1', '13', '2023-1-13-12-34-56.csv'))
