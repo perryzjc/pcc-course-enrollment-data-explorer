@@ -15,4 +15,4 @@ def write_to_log_file(log_file_path: str, msg: str):
         msg: msg to be written to log file
     """
     with open(log_file_path, 'a') as f:
-        f.write(msg)
+        f.writelines(msg + '\n')
