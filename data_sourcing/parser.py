@@ -9,7 +9,7 @@ Typical usage example:
 
 from bs4 import BeautifulSoup
 import collections.abc
-import data_sourcing.constants as constants
+import data_sourcing.constants as const
 
 
 def parse_html(html: str) -> dict[str, list[str, str, str, str]]:
@@ -83,7 +83,8 @@ def parse_to_raw_list(html: str) -> list[str, ...]:
 def next_status(data_lst_iter: collections.abc.Iterator) -> str:
     """Return the next course status in iterator and move the iterator to the next data
 
-    There are 3 status: OPEN, ClOSED, Waitlisted
+    There are many status other than OPEN, ClOSED, Waitlisted
+    Check data_sourcing.constants.COURSE_STATUS_LIST for more information
 
     Args:
         data_lst_iter: iterator of the list of data
@@ -99,7 +100,7 @@ def next_status(data_lst_iter: collections.abc.Iterator) -> str:
     status = None
     while not status_found:
         item = next(data_lst_iter).strip()
-        if item == 'OPEN' or item == 'CLOSED' or item == 'Waitlisted':
+        if any(item == s for s in const.COURSE_STATUS_LIST):
             status_found = True
             status = item
 
@@ -188,10 +189,8 @@ def is_location(text: str) -> bool:
     """
     # based on observation, PCC locations are always at least 5 characters long after stripping
     # , they are not entirely digits
-    # , none of them starts with a letter L
     # , none of them starts with a digit (this case is for time, e.g. 10:30am - 02:05pm)
     stripped_text = text.strip()
     return len(stripped_text) >= 5 \
            and not stripped_text.isdigit() \
-           and not stripped_text.startswith('L') \
            and not stripped_text[0].isdigit()
