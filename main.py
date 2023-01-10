@@ -18,4 +18,5 @@ while True:
     data = parse_html(html)
     curt_time = time.localtime(time.time())
     store_data(data, curt_time, os.path.join(os.path.dirname(os.path.abspath(__file__)), constants.OUTPUT_DATA_SOURCING_FOLDER))
+    print('successfully store a data file at time: ', time.strftime('%Y-%m-%d %H:%M:%S', curt_time))
     time.sleep(constants.REQUEST_INTERVAL)
