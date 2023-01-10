@@ -5,6 +5,17 @@ import os
 # REQUEST_INTERVAL is the time interval (in seconds) between two requests
 REQUEST_INTERVAL = 30 * 60
 
+# COURSE_STATUS_LIST is the list of all possible course status
+COURSE_STATUS_LIST = ['OPEN', 'CLOSED', 'Waitlisted', 'Restricted: See Counselor',
+                      'Restricted: Dual Enrollment', 'Restricted: SLPA', 'Restricted',
+                      'Permission of Instructor', 'Permission of Dean',
+                      'Restricted: Restorative Dental',
+                      'Restricted: Biotechnology Prog', 'Restricted: Nursing Program',
+                      'Audition Required', 'Restricted: Med Asst Program',
+                      'Restricted: Math Path', 'Restricted: Dental Hygiene',
+                      'Restricted: Dental Assisting', 'Restricted: Ujima',
+                      'Restricted: Puente', 'Restricted: Study Abroad', 'See Instructor']
+
 # OUTPUT_FOLDER specifies the folder where the output files are stored
 OUTPUT_FOLDER = 'output'
 
