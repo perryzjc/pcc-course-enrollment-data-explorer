@@ -48,20 +48,32 @@ subgraph pcc-course-enrollment-data-explorer
             style ANA fill:#4E95B4
         direction TB
         ANA --> Info-Extraction
-        ANA --> E["Visualization of data trend (TODO)"]
+        ANA --> E["Visualization of data trend"]
         Info-Extraction --> Intepretation
 
         subgraph Info-Extraction
-            CO[Number of course status]
-            DR[Course drop info]
-            MO[TBD]
+            CO[Popular courses]
+            CO --> IRA[Growth rate of enrollment]
+            IRA --> FC[Fastestclosed class]
+            NL[Courses that students do not like] --> DR[Course drop info]
+            UP[Unpopular courses] --> EL[Enrollment is low and fluctuates very little]
+            MO[More]
         end
 
         subgraph Intepretation
-            Q1["Why it happened? (TODO)"]
-            Q2["How to benefit from this data (TODO)"]
-                Q2 .-> Q21["chance to enroll a closed class (TODO)"]
-                Q2 .-> Q22["TBD"]
+            Q1["Why it happened?"]
+            DM[What these data mean] --> Student-Point-of-View
+            DM[What these data mean] --> School-Point-of-View
+            subgraph Student-Point-of-View
+                CH[Courses helpful to students]
+                Q21["chance to enroll a closed class"]
+                M2[More]
+            end
+            subgraph School-Point-of-View
+                BA[Optimize the budget of the course plan] --> CC[Appropriate course capacity]
+                CC --> HD[Add courses that are in high demand]
+                CC --> LD[Courses that may require reduced capacity]
+            end
         end
     end
 end
