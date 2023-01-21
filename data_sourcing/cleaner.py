@@ -1,10 +1,10 @@
-"""Parse html data and return a dictionary of course data.
+"""Clean html data and return a dictionary of course data.
 
 Typical usage example:
 
     with open('sample_html/all_courses_data.html', 'r') as f:
         html = f.read()
-    data = parse_html(html)
+    data = clean_html(html)
 """
 
 from bs4 import BeautifulSoup
@@ -12,8 +12,8 @@ import collections.abc
 import data_sourcing.constants as const
 
 
-def parse_html(html: str) -> dict[str, list[str, str, str, str]]:
-    """Parse HTML data and return a dictionary of course data.
+def clean_html(html: str) -> dict[str, list[str, str, str, str]]:
+    """Clean HTML data and return a dictionary of course data.
 
     Args:
         html: HTML data returned at PCC course schedule page

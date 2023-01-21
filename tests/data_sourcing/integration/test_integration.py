@@ -10,7 +10,7 @@ Partition on the integration of the three modules:
     call parser and requester
     call requester, parser and storer
 """
-from data_sourcing.parser import parse_html
+from data_sourcing.cleaner import clean_html
 from data_sourcing.storer import store_data
 import os
 import time
@@ -49,7 +49,7 @@ def test_integration_parser_storer1(setup_html_data1):
     The file should be successfully stored at the correct location.
     The content of file should have correct number of data
     """
-    data = parse_html(setup_html_data1)
+    data = clean_html(setup_html_data1)
     store_data(data,
                time.struct_time((2023, 1, 13, 12, 34, 56, 0, 0, 0)),
                CACHE_DIR)
@@ -66,7 +66,7 @@ def test_integration_parser_storer2(setup_html_data2):
     The file should be successfully stored at the correct location.
     The content of file should have correct number of data
     """
-    data = parse_html(setup_html_data2)
+    data = clean_html(setup_html_data2)
     store_data(data,
                time.struct_time((2026, 6, 6, 6, 6, 6, 0, 0, 0)),
                CACHE_DIR)

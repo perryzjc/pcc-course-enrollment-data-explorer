@@ -32,15 +32,15 @@ subgraph pcc-course-enrollment-data-explorer
         direction TB
         PCC[(PCC-COURSE-WEB)]
         A[requester]
-        B[parser]
+        B[cleaner]
         C[storer]
         L[[log]]
         S --every 30 mins--> A
         A -.request data.-> PCC -.return html data.-> A
         A --pass html data--> B
-        B --extract info--> C
+        B --clean info--> C
         C .-> L
-        C -.store parsed data to local.-> S
+        C -.store cleaned data to local.-> S
 
     end
     subgraph Data-Analysis
@@ -86,7 +86,7 @@ This project wanted to explore PCC's (Pasadena City College) course enrollment d
 
 ## Features
 
-* Data Sourcing: Automatically captures and stores up-to-date information from the PCC Course Web every 30 minutes. This data is then parsed and extracted for further analysis.
+* Data Sourcing: Automatically captures and stores up-to-date information from the PCC Course Web every 30 minutes. This data is then get cleaned and extracted for further analysis.
   * Obtained course data is uploaded to the [output folder](https://github.com/perryzjc/pcc-course-enrollment-data-explorer/tree/main/output) by the server owned by [@perryzjc](https://github.com/perryzjc?tab=repositories) 
 * Data Analysis: Provide a range of capabilities for analyzing the data, including:
   * Info Extraction: Extract and organize information such as the number of course statuses and course drop rates.

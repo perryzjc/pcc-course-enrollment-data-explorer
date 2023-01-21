@@ -13,7 +13,7 @@ Testing strategy
 import os
 import pytest
 import data_sourcing.constants as const
-from data_sourcing.parser import parse_html
+from data_sourcing.cleaner import clean_html
 
 ABSOLUTE_CWD = os.path.dirname(os.path.abspath(__file__))
 
@@ -47,27 +47,27 @@ def setup_html_all_courses():
 
 
 def test_parse_html_1_course(setup_html_1_course):
-    data = parse_html(setup_html_1_course)
+    data = clean_html(setup_html_1_course)
     assert len(data) == 1
     assert data['37200'] == ['20', '15', '2', 'OPEN']
 
 
 def test_parse_html_11_courses(setup_html_11_courses):
-    data = parse_html(setup_html_11_courses)
+    data = clean_html(setup_html_11_courses)
     assert len(data) == 11
     assert data['37201'] == ['20', '--', '0', 'CLOSED']
     helper_check_dict_format(data)
 
 
 def test_parse_html_35_courses(setup_html_35_courses):
-    data = parse_html(setup_html_35_courses)
+    data = clean_html(setup_html_35_courses)
     assert len(data) == 35
     assert data['38609'] == ['25', '5', '20', 'Restricted: See Counselor']
     helper_check_dict_format(data)
 
 
 def test_parse_html_all_courses(setup_html_all_courses):
-    data = parse_html(setup_html_all_courses)
+    data = clean_html(setup_html_all_courses)
     assert len(data) == 2750
     helper_check_dict_format(data)
 
