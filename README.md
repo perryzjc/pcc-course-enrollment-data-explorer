@@ -77,7 +77,48 @@ subgraph pcc-course-enrollment-data-explorer
         end
     end
 end
+```
 
+```mermaid
+flowchart LR
+subgraph GPA Analysis
+    HELP(((How to help GPA?)))
+    HELP --> A[Find Popular Courses]
+    HELP --> ENROLL[How to enroll a closed course?]
+    HELP --> F[Disliked Courses]
+    subgraph Popular Courses
+        A --> B[Courses Close Fast]
+        A --> C[Enrollment Increment Rate]
+        A --> D[Visualization of Data Trend]
+        A --> GA[Which professor usually give add code]
+        B --> E[Ratemyprofessor.com Truthfulness]
+        C --> E
+        D --> E
+        GA --> E
+    end
+    subgraph Disliked Courses
+        F --> G[Course Drop Rate]
+    end
+    subgraph Enroll Closed Course
+        ENROLL --> H[Traditional Way]
+        ENROLL --> LATER["New Way: Fact behind Data Science"]
+        subgraph Traditional Way
+            H --> I[Registration Priority]
+            H --> J[Waitlist]
+            H --> K[Add Code]
+        end
+        subgraph New Way
+            LATER --> L[Student can be Dropped for many Reasons]
+            LATER --> P[New Courses added after Semester Start]
+            LATER --> O[Course Seat Monitor]
+            subgraph Course Seat Monitor
+                O --> Q[Sending Email Alerts]
+            end
+            L --> M[International Student Tuition not paying in time]
+            L --> N[Miss course Check-in Time]
+        end
+    end
+end
 ```
 
 This project wanted to explore PCC's (Pasadena City College) course enrollment data, to learn interesting facts about it and try to give it an analysis and interpretation. For example, a course is likely to have a large number of students drop at a certain time due to students not paying tuition. Students can use this opportunity to enroll in this closed course. This project hopes to support this conjecture with a large data set and discover more data phenomena.
