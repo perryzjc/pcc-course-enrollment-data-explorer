@@ -3,8 +3,8 @@
 import os
 import csv
 
-CSV_DIR_PATH = '/backend/data/data_source/2023'
-OUTPUT_FILE_PATH = '/backend/data/data_source/2023.csv'
+CSV_DIR_PATH = '/Users/jingchaozhong/Desktop/code/Data Science/pcc-course-enrollment-data-explorer/backend/data/2023'
+OUTPUT_FILE_PATH = '/Users/jingchaozhong/Desktop/code/Data Science/pcc-course-enrollment-data-explorer/backend/data/2023/2023.csv'
 
 
 def combine_csv(csv_dir_path: str, output_file_path: str):
