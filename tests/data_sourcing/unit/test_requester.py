@@ -2,7 +2,7 @@
 
 Testing strategy
 
-partition on the output:
+partition on the data:
     not empty
     contain CLOSED word
     contain OPEN word
@@ -10,7 +10,7 @@ partition on the output:
     should contain many lines
 
 This strategy does not cover every possibility,
-but it is nearly sufficient to test the output of the function.
+but it is nearly sufficient to test the data of the function.
 """
 import pytest
 from data_sourcing.requester import get_html_of_course_web

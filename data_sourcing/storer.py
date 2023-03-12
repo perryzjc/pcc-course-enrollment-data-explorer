@@ -32,8 +32,8 @@ def store_data(data: dict[str, list[str, str, str]],
         target_folder_path: base path of the folder to store the csv file, which need to exist.
         For example:
 
-        When target_folder_path is provided as pcc/output, the csv file could be stored
-        at pcc/output/2023/1/13/2023-1-13-12-34-56.csv
+        When target_folder_path is provided as pcc/data, the csv file could be stored
+        at pcc/data/2023/1/13/2023-1-13-12-34-56.csv
 
         If the folder does not exist, the function will raise FileNotFoundError.
 
@@ -59,7 +59,7 @@ def create_folder_needed_if_not_exists(target_time: time.struct_time,
 
     The folder is created based on the target_time parameter.
     The folder is created in the following format:
-    output/year/month/day
+    data/year/month/day
     If the folder already exists, nothing will be done.
 
     Args:
@@ -70,7 +70,7 @@ def create_folder_needed_if_not_exists(target_time: time.struct_time,
         The path of the folder created based on the target time precise to the day.
         For example:
 
-        output/2023/1/13
+        data/2023/1/13
     """
     def curr_year() -> str:
         """Return the current year in string format

@@ -3,7 +3,7 @@
 """
 
 import requests
-import data_sourcing.constants as const
+import config.const_data_sourcing as const
 
 
 def get_html_of_course_web() -> str:

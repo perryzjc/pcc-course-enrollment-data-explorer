@@ -12,7 +12,7 @@ Testing strategy
 """
 import os
 import pytest
-import data_sourcing.constants as const
+import config.const_data_sourcing as const
 from data_sourcing.cleaner import clean_html
 
 ABSOLUTE_CWD = os.path.dirname(os.path.abspath(__file__))

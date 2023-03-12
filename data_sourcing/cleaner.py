@@ -9,7 +9,7 @@ Typical usage example:
 
 from bs4 import BeautifulSoup
 import collections.abc
-import data_sourcing.constants as const
+import config.const_data_sourcing as const
 
 
 def clean_html(html: str) -> dict[str, list[str, str, str, str]]:

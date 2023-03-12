@@ -1,5 +1,6 @@
 """Store the constants used in the data_sourcing package
 """
+from config.config import CONFIG_DIR_PATH
 import os
 
 # REQUEST_INTERVAL is the time interval (in seconds) between two requests
@@ -16,11 +17,12 @@ COURSE_STATUS_LIST = ['OPEN', 'CLOSED', 'Waitlisted', 'Restricted: See Counselor
                       'Restricted: Dental Assisting', 'Restricted: Ujima',
                       'Restricted: Puente', 'Restricted: Study Abroad', 'See Instructor']
 
-# OUTPUT_FOLDER specifies the folder where the output files are stored
-OUTPUT_FOLDER = 'output'
 
-# OUTPUT_DATA_SOURCING_FOLDER specifies the folder where the output files from data sourcing are stored
-OUTPUT_DATA_SOURCING_FOLDER = os.path.join(OUTPUT_FOLDER, 'data_source')
+# DATA_FOLDER specifies the folder where the data files are stored
+DATA_FOLDER = os.path.join(CONFIG_DIR_PATH, '../data')
+
+# OUTPUT_DATA_SOURCING_FOLDER specifies the folder where the data files from data sourcing are stored
+DATA_DATA_SOURCING_FOLDER = os.path.join(DATA_FOLDER, 'data_source')
 
 # SAMPLE_FOLDER specifies the folder where the sample html files are stored
 SAMPLE_HTML_FOLDER = 'sample_html'
