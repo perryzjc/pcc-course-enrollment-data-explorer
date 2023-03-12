@@ -1,7 +1,7 @@
 """Analyze PCC course data based on html data or parsed data
 """
 
-from data_sourcing.cleaner import parse_to_raw_list, next_status
+from data_clean.cleaner import parse_to_raw_list, next_status
 
 
 def get_all_course_status(html: str) -> set[str]:

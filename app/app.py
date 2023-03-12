@@ -6,9 +6,9 @@ in a fixed time interval.
 """
 
 from data_sourcing.requester import get_html_of_course_web
-from data_sourcing.cleaner import clean_html
+from data_clean.cleaner import clean_html
 from data_sourcing.storer import store_data
-from log import write_to_log_file, LOG_FILE_PATH
+from data_sourcing.log import write_to_log_file, LOG_FILE_PATH
 import time
 import config.const_data_sourcing as config
 
