@@ -13,7 +13,7 @@ This strategy does not cover every possibility,
 but it is nearly sufficient to test the data of the function.
 """
 import pytest
-from data_sourcing.requester import get_html_of_course_web
+from backend.data_sourcing.requester import get_html_of_course_web
 
 
 html_requested = False

@@ -12,8 +12,8 @@ Testing strategy
 """
 import os
 import pytest
-import config.const_data_sourcing as const
-from data_clean.cleaner import clean_html
+from backend.config import config_data_sourcing as config
+from backend.data_clean.cleaner import clean_html
 
 ABSOLUTE_CWD = os.path.dirname(os.path.abspath(__file__))
 
@@ -86,4 +86,4 @@ def helper_check_dict_format(data: dict):
         assert data[d][0].isdigit()
         assert data[d][1].isdigit() or data[d][1] == '--'
         assert data[d][2].isdigit() or data[d][2] == '--'
-        assert any(data[d][3] == s for s in const.COURSE_STATUS_LIST)
+        assert any(data[d][3] == s for s in config.COURSE_STATUS_LIST)

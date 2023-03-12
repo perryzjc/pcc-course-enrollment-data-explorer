@@ -179,7 +179,7 @@ This guide provides a quick way to get started with this project.
 ### Usage Examples
 
 ```shell
-(pcc-course-enrollment-data-explorer) perryzjc@MBP pcc-course-enrollment-data-explorer % python3 app.py
+(pcc-course-enrollment-data-explorer) perryzjc@MBP pcc-course-enrollment-data-explorer % python3 frontend.py
 ```
 
 #### Expected results:

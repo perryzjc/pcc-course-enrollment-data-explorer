@@ -2,7 +2,7 @@
 """
 import os
 import pytest
-from data_analysis.data_analysis import get_all_course_status
+from backend.data_analysis.data_analysis import get_all_course_status
 
 
 SOURCE_HTML_DIR_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../data_sourcing/sample_html')

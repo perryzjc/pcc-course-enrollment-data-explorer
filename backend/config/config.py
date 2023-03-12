@@ -1,4 +1,4 @@
-"""Configuration file for the app.
+"""Configuration file for the frontend.
 """
 
 import os

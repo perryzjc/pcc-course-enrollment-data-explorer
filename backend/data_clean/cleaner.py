@@ -9,7 +9,7 @@ Typical usage example:
 
 from bs4 import BeautifulSoup
 import collections.abc
-import config.const_data_sourcing as const
+from backend.config import config_data_sourcing as config
 
 
 def clean_html(html: str) -> dict[str, list[str, str, str, str]]:
@@ -100,7 +100,7 @@ def next_status(data_lst_iter: collections.abc.Iterator) -> str:
     status = None
     while not status_found:
         item = next(data_lst_iter).strip()
-        if any(item == s for s in const.COURSE_STATUS_LIST):
+        if any(item == s for s in config.COURSE_STATUS_LIST):
             status_found = True
             status = item
 

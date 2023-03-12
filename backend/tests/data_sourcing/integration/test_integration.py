@@ -10,8 +10,8 @@ Partition on the integration of the three modules:
     call parser and requester
     call requester, parser and storer
 """
-from data_clean.cleaner import clean_html
-from data_sourcing.storer import store_data
+from backend.data_clean.cleaner import clean_html
+from backend.data_sourcing.storer import store_data
 import os
 import time
 import pytest

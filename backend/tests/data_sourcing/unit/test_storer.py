@@ -12,7 +12,7 @@ import os.path
 import time
 
 import pytest
-from data_sourcing.storer import store_data
+from backend.data_sourcing.storer import store_data
 
 
 ABSOLUTE_CWD = os.path.dirname(os.path.abspath(__file__))

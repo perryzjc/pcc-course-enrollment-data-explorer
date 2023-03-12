@@ -5,13 +5,12 @@ It currently can store the parsed files obtained through PCC course schedule web
 in a fixed time interval.
 """
 
-from data_sourcing.requester import get_html_of_course_web
-from data_clean.cleaner import clean_html
-from data_sourcing.storer import store_data
-from data_sourcing.log import write_to_log_file, LOG_FILE_PATH
+from backend.data_sourcing.requester import get_html_of_course_web
+from backend.data_clean.cleaner import clean_html
+from backend.data_sourcing.storer import store_data
+from backend.data_sourcing.log import write_to_log_file, LOG_FILE_PATH
+from backend.config import config_data_sourcing as config
 import time
-import config.const_data_sourcing as config
-
 
 while True:
     html = get_html_of_course_web()

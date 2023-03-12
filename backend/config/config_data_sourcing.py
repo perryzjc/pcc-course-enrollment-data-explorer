@@ -1,6 +1,6 @@
 """Store the constants used in the data_sourcing package
 """
-from config.config import CONFIG_DIR_PATH
+from backend.config.config import CONFIG_DIR_PATH
 import os
 
 # REQUEST_INTERVAL is the time interval (in seconds) between two requests
