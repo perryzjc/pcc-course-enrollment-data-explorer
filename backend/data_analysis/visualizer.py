@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from datetime import datetime
 from typing import List, Tuple
+from backend.log import write_to_log_file
 
 matplotlib.use('webagg')
 
@@ -97,3 +98,25 @@ class Visualizer:
             yaxis_title=ax.get_ylabel(),
             legend_title=ax.get_legend().get_title().get_text())
         return fig
+
+    @staticmethod
+    def crn_lst_valid(crn_lst: List[int]) -> bool:
+        """Return True if the given CRN list is valid, False otherwise.
+
+        crn_lst is valid if
+            - it is empty
+            - it contains only integers
+            - no repeated CRN
+
+        If any error, write to log and print it console
+        """
+        if crn_lst is None:
+            return True
+        if not all(isinstance(crn, int) for crn in crn_lst):
+            print('CRN list contains non-integer values')
+            return False
+        if len(crn_lst) != len(set(crn_lst)):
+            print('CRN list contains repeated CRN')
+            return False
+        return True
+
