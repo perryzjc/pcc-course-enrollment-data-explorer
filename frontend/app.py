@@ -16,15 +16,17 @@ def home():
 def visualize_trend():
     # construct an empty fig_json
     fig_json = visualizer.get_plotly_fig_json()
-    return render_template('visualize-trend.html', fig_json=fig_json)
+    return render_template('visualize-trend.html', fig_json=fig_json, all_crn=data_frame_processor.get_all_crn())
 
 
 @app.route('/api/visualize_trend', methods=['POST'])
 def api_visualize_trend():
     # crn read as int
-    crn_lst = request.json['crn_lst']
-    start_time = request.json['start_time']
-    end_time = request.json['end_time']
+    crn_lst = request.json['crnLst']
+    start_time = request.json['startTime']
+    end_time = request.json['endTime']
+    if not data_frame_processor.crn_lst_valid(crn_lst):
+        return 'Contain invalid CRN'
     fig_json = visualizer.get_plotly_fig_json(crn_lst=crn_lst, start_time=start_time, end_time=end_time)
     return fig_json
 

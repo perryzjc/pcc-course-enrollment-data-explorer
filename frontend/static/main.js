@@ -7,23 +7,31 @@ $(document).ready(function() {
 
   // Add CRN button click handler
   $('#add-crn-btn').click(function() {
-    let crn = $('#crn-input').val();
-    if (crn === '') {
-      // Display an error message if the input field is empty
-      $('#error-message').text('Please enter a CRN.');
-      $('#error-message').show();
-    } else if (crns.includes(crn)) {
-      // Display an error message if the CRN is already in the list
-      $('#error-message').text('The CRN is already in the list.');
-      $('#error-message').show();
-    } else {
-      crns.push(crn);
-      updateCrnList();
-      requestData()
-      visualizeTrend();
-      // Clear the error message if there was one
-      $('#error-message').hide();
+    const crn = $('#crn-input').val().trim();
+    if (!crn) {
+      $('#error-message').text('Please enter a CRN.').show();
+      return;
     }
+    if (crns.includes(crn)) {
+      $('#error-message').text('The CRN is already in the list.').show();
+      return;
+    }
+    crns.push(crn);
+    requestData()
+      .then(function() {
+        console.log('Request succeeded.');
+        console.log(crns)
+        updateCrnList();
+        visualizeTrend();
+        $('#error-message').hide();
+        $('#crn-input').val('');
+      })
+      .catch(reason => {
+        console.error('2');
+        console.error(reason);
+        crns.pop();
+        $('#error-message').text(reason).show();
+      });
   });
 
   // Remove CRN button click handler
@@ -133,34 +141,44 @@ $(document).ready(function() {
   }
 
   function requestData() {
-    const int_crns = crns.map(crn => parseInt(crn));
-    // Send request to server
-    $.ajax({
-      url: '/api/visualize_trend',
-      type: 'POST',
-      contentType: 'application/json',
-      // but crn should read as int
-      data: JSON.stringify({
-        crn_lst: int_crns,
-        start_time: $('#start-time-input').val(),
-        end_time: $('#end-time-input').val()
-      }),
-      success: function(fig_json) {
-        // Render the returned figure JSON
-        figure = JSON.parse(fig_json);
-        Plotly.newPlot('plot', figure.data, figure.layout);
-        setMinTime(figure);
-        setMaxTime(figure);
-      },
-      error: function() {
-        console.log('Error fetching data from server.');
-      }
+    const intCrns = crns.map(crn => parseInt(crn));
+    return new Promise(function(resolve, reject) {
+      $.ajax({
+        url: '/api/visualize_trend',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          crnLst: intCrns,
+          startTime: $('#start-time-input').val(),
+          endTime: $('#end-time-input').val()
+        }),
+        success: function(figJson) {
+          if (!figJson) {
+            reject("No data returned from server.");
+          }
+          if (figJson === 'Contain invalid CRN') {
+            reject("Contain invalid CRN");
+          }
+          figure = JSON.parse(figJson);
+          setMinTime(figure);
+          setMaxTime(figure);
+          resolve(true);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          const errorMsg = 'Error fetching data from server.';
+          console.error(errorMsg, errorThrown);
+          reject(errorMsg);
+        }
+      });
     });
   }
 
   // remove crn from figure data directly don need to request data again
   function removeCRNFromFigure(crn) {
     let index = -1;
+    if (!figure.data) {
+      return;
+    }
     for (let i = 0; i < figure.data.length; i++) {
       if (figure.data[i].name === crn) {
         console.log("remove crn from figure data");
