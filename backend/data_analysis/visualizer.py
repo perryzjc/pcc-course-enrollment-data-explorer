@@ -55,9 +55,12 @@ class Visualizer:
         groups = df.groupby('CRN')
         # Create a list of Scatter objects, one for each group
         fig, ax = plt.subplots(figsize=(10, 6))
+        labels = []
         for i, (name, group) in enumerate(groups):
+            name = str(name)
             ax.plot(group['Time'], group['Rem'], color=colors[i], label=name)
-        ax.legend()
+            labels.append(name)
+        ax.legend(title='CRN', labels=labels)
         ax.set_title('Course Enrollment Trend')
         ax.set_xlabel('Time')
         ax.set_ylabel('Remaining Seats')
@@ -90,13 +93,16 @@ class Visualizer:
     def matplotlib_fig_to_plotly_fig(ax):
         fig = go.Figure()
         for i, data in enumerate(ax.lines):
-            fig.add_trace(go.Scatter(x=data.get_xdata(), y=data.get_ydata(), name=f"Line {i + 1}"))
+            fig.add_trace(go.Scatter(x=data.get_xdata(), y=data.get_ydata(), name=data.get_label(), mode='lines'))
         # update layout based on the setting of the matplotlib figure
         fig.update_layout(
             title=ax.get_title(),
             xaxis_title=ax.get_xlabel(),
             yaxis_title=ax.get_ylabel(),
-            legend_title=ax.get_legend().get_title().get_text())
+            legend_title=ax.get_legend().get_title().get_text(),
+            showlegend=True
+        )
+
         return fig
 
     @staticmethod
