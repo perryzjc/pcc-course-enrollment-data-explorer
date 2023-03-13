@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Flask Plotly Example{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        My Plotly Chart
+      </div>
+      <div class="card-body">
+        <div id="plot"></div>
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <h5>Current CRNs</h5>
+            <select class="form-control" id="crn-select">
+              <!-- CRNs will be added dynamically here -->
+            </select>
+            <div class="alert alert-danger mt-3" id="error-message" style="display:none;"></div>
+            <h5 class="mt-3">Select CRN</h5>
+            <div class="form-group">
+              <input type="text" class="form-control" name="query" id="crn-input" list="search-list" placeholder="Enter CRN...">
+              <datalist id="search-list">
+                {% for crn in all_crn %}
+                  <option value="{{ crn }}"></option>
+                {% endfor %}
+              </datalist>
+            </div>
+            <hr>
+            <button type="button" class="btn btn-primary" id="add-crn-btn">Add</button>
+            <button type="button" class="btn btn-danger" id="remove-crn-btn">Remove</button>
+          </div>
+          <div class="col-md-4">
+            <h5>Select Time Range</h5>
+            <div class="form-group">
+              <label for="start-time-input">Start Time</label>
+              <input type="datetime-local" class="form-control" id="start-time-input">
+            </div>
+            <div class="form-group">
+              <label for="end-time-input">End Time</label>
+              <input type="datetime-local" class="form-control" id="end-time-input">
+            </div>
+            <button type="button" class="btn btn-primary" id="apply-time-range-btn">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script type="module" src="{{ url_for('static', filename='main.js') }}"></script>
+  <script>
+    // Parse the Plotly JSON data passed from Flask
+    var fig = JSON.parse('{{ fig_json | safe }}');
+
+    // Draw the Plotly plot in the 'plot' div
+    Plotly.newPlot('plot', fig.data, fig.layout);
+  </script>
+{% endblock %}
