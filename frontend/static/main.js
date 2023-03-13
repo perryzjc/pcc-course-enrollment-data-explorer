@@ -56,8 +56,8 @@ $(document).ready(function() {
   });
 
   function filterDataByTimeRange(data) {
-    // if data is empty, do nothing
-    if (data.length === 0) {
+    // if data is invalid
+    if (!data) {
         return data;
     }
     let startTime = $('#start-time-input').val();

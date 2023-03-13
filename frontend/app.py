@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
 from backend.data_analysis.visualizer import Visualizer
+from backend.data_analysis.data_frame_processor import DataFrameProcessor
 
 app = Flask(__name__)
-visualizer = Visualizer('/Users/jingchaozhong/Desktop/code/Data Science/pcc-course-enrollment-data-explorer/backend/data/data_source/2023/2023.csv')
+data_frame_processor = DataFrameProcessor('/Users/jingchaozhong/Desktop/code/Data Science/pcc-course-enrollment-data-explorer/backend/data/data_source/2023/2023.csv')
+visualizer = Visualizer(data_frame_processor)
 
 
 @app.route('/')
