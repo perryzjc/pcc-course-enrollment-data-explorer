@@ -41,3 +41,27 @@ class DataFrameProcessor:
         """Return a list of all CRNs in the data frame.
         """
         return self.df['CRN'].unique().tolist()
+
+    def crn_lst_valid(self, crn_lst: List[int]) -> bool:
+        """Return True if the given CRN list is valid, False otherwise.
+
+        crn_lst is valid if
+            - it is empty
+            - it contains only integers
+            - no repeated CRN
+            - crn all exist in the data frame
+
+        If any error, write to log and print it console
+        """
+        if crn_lst is None:
+            return True
+        if not all(isinstance(crn, int) for crn in crn_lst):
+            print('CRN list contains non-integer values')
+            return False
+        if len(crn_lst) != len(set(crn_lst)):
+            print('CRN list contains repeated CRN')
+            return False
+        if not all(crn in self.get_all_crn() for crn in crn_lst):
+            print('CRN list contains non-existing CRN')
+            return False
+        return True

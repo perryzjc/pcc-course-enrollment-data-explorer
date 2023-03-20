@@ -38,7 +38,7 @@ class Visualizer:
         if crn_lst is None:
             crn_lst = []
         df = self.df_processor.get_data_frame(crn_lst, start_time, end_time)
-        crn_lst_valid = Visualizer.crn_lst_valid(crn_lst)
+        crn_lst_valid = self.df_processor.crn_lst_valid(crn_lst)
         colors = Visualizer._get_color_lst(crn_lst)
         groups = df.groupby('CRN')
         # Create a list of Scatter objects, one for each group
@@ -77,24 +77,3 @@ class Visualizer:
         cmap = plt.get_cmap('viridis')
         colors = [cmap(i) for i in np.linspace(0, 1, len(crn_lst))]
         return colors
-
-    @staticmethod
-    def crn_lst_valid(crn_lst: List[int]) -> bool:
-        """Return True if the given CRN list is valid, False otherwise.
-
-        crn_lst is valid if
-            - it is empty
-            - it contains only integers
-            - no repeated CRN
-
-        If any error, write to log and print it console
-        """
-        if crn_lst is None:
-            return True
-        if not all(isinstance(crn, int) for crn in crn_lst):
-            print('CRN list contains non-integer values')
-            return False
-        if len(crn_lst) != len(set(crn_lst)):
-            print('CRN list contains repeated CRN')
-            return False
-        return True
