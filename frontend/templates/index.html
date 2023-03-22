@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>PCC Course Enrollment Data Explorer</h1>
+    <p>Choose one of the following options:</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Visualize Trend</h5>
+            <p class="card-text">Explore data trends with interactive visualizations.</p>
+            <a href="/visualize_trend" class="btn btn-primary">Go to Visualize Trend</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Show Data</h5>
+            <p class="card-text">View data tables and export data to CSV.</p>
+            <a href="/show_data" class="btn btn-primary">Go to Show Data</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Top Courses</h5>
+            <p class="card-text">See the most popular courses by enrollments.</p>
+            <a href="/top_courses" class="btn btn-primary">Go to Top Courses</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
