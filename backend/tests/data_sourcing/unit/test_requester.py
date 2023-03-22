@@ -25,7 +25,17 @@ def setup_html_data():
     global html_requested
     global returned_html
     if not html_requested:
-        returned_html = get_html_of_course_web()
+        returned_html = get_html_of_course_web('Spring', '2023')
+        html_requested = True
+    return returned_html
+
+
+@pytest.fixture
+def setup_html_data2():
+    global html_requested
+    global returned_html
+    if not html_requested:
+        returned_html = get_html_of_course_web('Summer', '2023')
         html_requested = True
     return returned_html
 
@@ -49,3 +59,12 @@ def test_contain_Waitlisted_word(setup_html_data):
 
 def test_contain_many_lines(setup_html_data):
     assert len(setup_html_data.splitlines()) > 50000
+
+
+def test_not_empy2(setup_html_data2):
+    assert setup_html_data2 is not None
+    assert len(setup_html_data2) > 0
+
+
+def test_contain_OPEN_word2(setup_html_data2):
+    assert 'OPEN' in setup_html_data2

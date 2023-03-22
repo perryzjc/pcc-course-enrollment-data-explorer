@@ -13,7 +13,9 @@ from backend.config import config_data_sourcing as config
 import time
 
 while True:
-    html = get_html_of_course_web()
+    term = 'Fall'
+    year = '2023'
+    html = get_html_of_course_web(term, year)
     data = clean_html(html)
     curt_time = time.localtime(time.time())
     store_data(data, curt_time, config.DATA_DATA_SOURCING_FOLDER)
